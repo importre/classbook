@@ -6,7 +6,6 @@ import Main from './components/main.jsx'
 import Intro from './components/intro.jsx'
 import Members from './components/members.jsx'
 import Album from './components/album.jsx'
-import Event from './components/event.jsx'
 import toolbar from '../../data/toolbar.json'
 
 window.React = React;
@@ -37,10 +36,7 @@ var routes = (
     <Route name="main" handler={Main}/>
     <Route name="intro" handler={Intro}/>
     <Route name="members" handler={Members}/>
-    <Route name="album" handler={Album}>
-      <Route name="event" path="event/:eventId" handler={Event}/>
-      <Redirect from="/album" to="/album/event/0"/>
-    </Route>
+    <Route name="album" handler={Album}/>
     <DefaultRoute handler={Main}/>
   </Route>
 );
