@@ -1,3 +1,33 @@
+@import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: #f9f9f9;
+  font-family: 'Jeju Gothic', serif;
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+.navbar-inverse
+.navbar-brand {
+  color: white;
+}
+
+.carousel-img {
+  background-color: black;
+}
+
+.featurette-divider {
+  margin: 80px 0;
+}
+

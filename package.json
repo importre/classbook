@@ -22,11 +22,15 @@
   "homepage": "https://github.com/importre/classbook#readme",
   "dependencies": {
     "react": "^0.13.3",
+    "react-bootstrap": "^0.21.2",
+    "react-router": "^0.13.3",
+    "react-router-bootstrap": "^0.13.4",
     "superagent": "^1.2.0"
   },
   "devDependencies": {
     "asar": "^0.6.1",
     "babelify": "^6.1.0",
+    "bootstrap-sass": "^3.3.4",
     "browser-sync": "^2.7.1",
     "browserify": "^10.1.3",
     "del": "^1.1.1",

@@ -1,6 +1,8 @@
 'use strict'
 
 const app = require('app');
+const ipc = require('ipc');
+const fs = require('fs');
 const BrowserWindow = require('browser-window');
 const Menu = require('menu');
 const MenuItem = require('menu-item');
@@ -28,7 +30,7 @@ app.on('ready', function () {
   try {
     var bs = require("browser-sync").create();
     bs.watch(`${__dirname}/**/*`, function (event, file) {
-      if (event == "change" && file.match(/(.css|.html|.js)$/g)) {
+      if (event == "change" && file.match(/(\.css|\.html|\.js|\.json)$/g)) {
         mainWindow.reloadIgnoringCache();
       }
     });
@@ -284,4 +286,8 @@ app.on('ready', function () {
     // for multiple windows store them in an array
     mainWindow = null;
   });
+});
+
+ipc.on('request-readdir', function(event, arg) {
+  event.returnValue = fs.readdirSync('images/events/' + arg);
 });
