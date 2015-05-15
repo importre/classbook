@@ -1,0 +1,17 @@
+[
+  {
+    "title": "title1",
+    "desc": "description1",
+    "image": "images/carousel.png"
+  },
+  {
+    "title": "title2",
+    "desc": "description2",
+    "image": "images/carousel.png"
+  },
+  {
+    "title": "title3",
+    "desc": "description3",
+    "image": "images/carousel.png"
+  }
+]
