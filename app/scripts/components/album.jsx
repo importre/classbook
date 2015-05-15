@@ -5,17 +5,36 @@ import rrb from 'react-router-bootstrap'
 import Main from './main.jsx'
 import Members from './members.jsx'
 
-var { Grid, Row, Col, NavItem, Nav } = bs;
+var { Grid, Row, Col, NavItem, Nav, Modal, Button, OverlayMixin } = bs;
+var { Carousel, CarouselItem } = bs;
 var ListGroupItemLink = rrb.ListGroupItemLink;
 
 let Album = React.createClass({
+
+  mixins: [OverlayMixin],
 
   getInitialState: function () {
     return {
       "activeKey": 0,
       "events": ipc.sendSync('request-readdir', ''),
-      "images": <div />
+      "images": <div />,
+      isModalOpen: false
     }
+  },
+
+  handleToggle() {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen
+    });
+  },
+
+  showImage: function (event, files, index) {
+    this.handleToggle();
+    this.setState({
+      event: event,
+      files: files,
+      selectedIndex: index
+    })
   },
 
   handleSelect: function (selectedKey) {
@@ -25,7 +44,8 @@ let Album = React.createClass({
     for (var i = 0; i < files.length; i++) {
       images.push(
         <Col sm={4}>
-          <div className="thumbnail">
+          <div className="thumbnail"
+               onClick={this.showImage.bind(this, event, files, i)}>
             <img src={"images/events/" + event + "/" + files[i]}/>
           </div>
         </Col>
@@ -66,6 +86,49 @@ let Album = React.createClass({
           </Col>
         </Row>
       </Grid>
+    );
+  },
+
+  handleCarousel: function (selectedIndex, selectedDirection) {
+    this.setState({
+      selectedIndex: selectedIndex,
+      direction: selectedDirection
+    });
+  },
+
+  renderOverlay() {
+    if (!this.state.isModalOpen) {
+      return <span/>;
+    }
+
+    var files = this.state.files;
+    var index = this.state.selectedIndex;
+
+    var items = [];
+    for (var i = 0; i < files.length; i++) {
+      var src = "images/events/" + this.state.event + "/" + files[index];
+      var item =
+        <CarouselItem>
+          <div className="text-center carousel-img">
+            <img width='100%' src={src}/>
+          </div>
+        </CarouselItem>;
+      items.push(item);
+    }
+
+    return (
+      <Modal title={this.state.event} onRequestHide={this.handleToggle} bsSize="large">
+        <div className='modal-body'>
+          <Carousel activeIndex={this.state.selectedIndex}
+                    direction={this.state.direction}
+                    onSelect={this.handleCarousel}>
+            {items}
+          </Carousel>
+        </div>
+        <div className='modal-footer'>
+          <Button onClick={this.handleToggle}>Close</Button>
+        </div>
+      </Modal>
     );
   }
 });
