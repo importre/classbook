@@ -289,5 +289,6 @@ app.on('ready', function () {
 });
 
 ipc.on('request-readdir', function(event, arg) {
-  event.returnValue = fs.readdirSync('images/events/' + arg);
+  var dir = `${__dirname}/images/events/`;
+  event.returnValue = fs.readdirSync(dir + arg);
 });
