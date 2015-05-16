@@ -14,11 +14,13 @@ let Album = React.createClass({
   mixins: [OverlayMixin],
 
   getInitialState: function () {
+    var dir = "images/events/";
     return {
       "activeKey": 0,
-      "events": ipc.sendSync('request-readdir', ''),
+      "events": ipc.sendSync('request-readdir', dir),
       "images": <div />,
-      isModalOpen: false
+      isModalOpen: false,
+      "imageDir" : dir
     }
   },
 
@@ -39,14 +41,15 @@ let Album = React.createClass({
 
   handleSelect: function (selectedKey) {
     const event = this.state.events[selectedKey];
-    var files = ipc.sendSync('req-events-dir', event);
+    const baseDir = this.state.imageDir + event;
+    var files = ipc.sendSync('request-readdir', baseDir);
     var images = [];
     for (var i = 0; i < files.length; i++) {
       images.push(
         <Col sm={4}>
           <div className="thumbnail"
                onClick={this.showImage.bind(this, event, files, i)}>
-            <img src={"images/events/" + event + "/" + files[i]}/>
+            <img src={baseDir + "/" + files[i]}/>
           </div>
         </Col>
       );
@@ -106,7 +109,7 @@ let Album = React.createClass({
 
     var items = [];
     for (var i = 0; i < files.length; i++) {
-      var src = "images/events/" + this.state.event + "/" + files[index];
+      var src = this.state.imageDir + this.state.event + "/" + files[index];
       var item =
         <CarouselItem>
           <div className="text-center carousel-img">
