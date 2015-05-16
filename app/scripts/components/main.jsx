@@ -1,27 +1,27 @@
 import React from 'react'
 import bs from 'react-bootstrap'
-import slides from '../../../data/slides.json'
 
 var { Button, Carousel, CarouselItem, Col, Grid, Row, Jumbotron } = bs;
 
 let Main = React.createClass({
 
   getInitialState: function () {
-    return {}
+    var json = ipc.sendSync('read-file', 'data/slides.json');
+    return JSON.parse(json)
   },
 
   render: function () {
     var items = [];
-    for (var i = 0; i < slides.length; i++) {
+    for (var i = 0; i < this.state.slides.length; i++) {
       var item =
         <CarouselItem>
           <div className="text-center carousel-img">
-            <img width='100%' src={slides[i].image}/>
+            <img width='100%' src={this.state.slides[i].image}/>
           </div>
           <div className='carousel-caption'>
-            <h3>{slides[i].title}</h3>
+            <h3>{this.state.slides[i].title}</h3>
 
-            <p>{slides[i].desc}</p>
+            <p>{this.state.slides[i].desc}</p>
           </div>
         </CarouselItem>;
       items.push(item);

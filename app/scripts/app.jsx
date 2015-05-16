@@ -6,7 +6,7 @@ import Main from './components/main.jsx'
 import Intro from './components/intro.jsx'
 import Members from './components/members.jsx'
 import Album from './components/album.jsx'
-import toolbar from '../../data/toolbar.json'
+import Settings from './components/settings.jsx'
 
 window.React = React;
 
@@ -15,14 +15,41 @@ var { Route, DefaultRoute, RouteHandler, Link, Redirect} = Router;
 var NavItemLink = rrb.NavItemLink;
 
 var App = React.createClass({
+
+  getInitialState: function () {
+    var json = JSON.parse(ipc.sendSync('read-file', 'data/toolbar.json'));
+    return {
+      "toolbar": json,
+      "editMode": false
+    }
+  },
+
+  toggleEditMode: function (editMode) {
+    this.setState({
+      "editMode": editMode
+    });
+  },
+
+  componentDidMount: function () {
+    ipc.on('editmode', this.toggleEditMode);
+  },
+
   render: function () {
+    var settings = null;
+    //if (this.state.editMode) {
+      settings = <NavItemLink to="settings">{this.state.toolbar.settings}</NavItemLink>;
+    //}
+
     return (
       <div>
-        <Navbar brand={<a href="#">{toolbar.title}</a>} inverse>
+        <Navbar brand={<a href="#">{this.state.toolbar.title}</a>} inverse>
           <Nav left>
-            <NavItemLink to="intro">{toolbar.intro}</NavItemLink>
-            <NavItemLink to="members">{toolbar.members}</NavItemLink>
-            <NavItemLink to="album">{toolbar.album}</NavItemLink>
+            <NavItemLink to="intro">{this.state.toolbar.intro}</NavItemLink>
+            <NavItemLink to="members">{this.state.toolbar.members}</NavItemLink>
+            <NavItemLink to="album">{this.state.toolbar.album}</NavItemLink>
+          </Nav>
+          <Nav right>
+            {{settings}}
           </Nav>
         </Navbar>
         <RouteHandler/>
@@ -37,6 +64,7 @@ var routes = (
     <Route name="intro" handler={Intro}/>
     <Route name="members" handler={Members}/>
     <Route name="album" handler={Album}/>
+    <Route name="settings" handler={Settings}/>
     <DefaultRoute handler={Main}/>
   </Route>
 );
