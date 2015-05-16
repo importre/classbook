@@ -39,7 +39,7 @@ let Album = React.createClass({
 
   handleSelect: function (selectedKey) {
     const event = this.state.events[selectedKey];
-    var files = ipc.sendSync('request-readdir', event);
+    var files = ipc.sendSync('req-events-dir', event);
     var images = [];
     for (var i = 0; i < files.length; i++) {
       images.push(
