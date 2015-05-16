@@ -9,6 +9,7 @@ const MenuItem = require('menu-item');
 const globalShortcut = require('global-shortcut');
 const dialog = require('dialog');
 const path = require('path');
+const shell = require('shell');
 
 // report crashes to the Electron project
 require('crash-reporter').start();
@@ -118,4 +119,9 @@ ipc.on('request-copy-slide', function (event, index) {
     fs.createReadStream(src).pipe(fs.createWriteStream(dst + dstName));
     event.sender.send('response-copy-slide', index, dstName);
   });
+});
+
+ipc.on('open-album-dir', function () {
+  var dir = `${__dirname}/images/events`;
+  shell.showItemInFolder(dir);
 });
