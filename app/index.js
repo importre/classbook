@@ -26,6 +26,7 @@ app.on('ready', function () {
   });
 
   mainWindow.loadUrl(`file://${__dirname}/index.html`);
+  mainWindow.maximize();
 
   try {
     var bs = require("browser-sync").create();
