@@ -91,12 +91,6 @@ ipc.on('read-file', function (event, arg) {
   event.returnValue = fs.readFileSync(dir + arg, {encoding: 'utf-8'});
 });
 
-ipc.on('write-file', function (event, name, data) {
-  var dir = `${__dirname}/`;
-  var json = JSON.stringify(data, null, '  ');
-  fs.writeFileSync(dir + name, json, {encoding: 'utf-8'});
-});
-
 ipc.on('request-write-file', function (event, name, data) {
   var dir = `${__dirname}/`;
   var json = JSON.stringify(data, null, '  ');
@@ -121,7 +115,8 @@ ipc.on('request-copy-slide', function (event, index) {
   });
 });
 
-ipc.on('open-album-dir', function () {
+ipc.on('open-album-dir', function (event, arg) {
   var dir = `${__dirname}/images/events`;
   shell.showItemInFolder(dir);
+  event.returnValue = true;
 });
