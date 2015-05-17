@@ -1,29 +1,24 @@
 import React from 'react'
 import bs from 'react-bootstrap'
-import intro from '../../../data/intro.json'
 
-var Button = bs.Button;
-var Carousel = bs.Carousel;
-var CarouselItem = bs.CarouselItem;
-var Col = bs.Col;
-var Grid = bs.Grid;
-var Jumbotron = bs.Jumbotron;
-var Row = bs.Row;
+var { Jumbotron } = bs;
 
 let Intro = React.createClass({
 
   getInitialState: function () {
-    return {}
+    return JSON.parse(ipc.sendSync('read-file', 'data/intro.json'))
   },
 
   render: function () {
+    var html = this.state.message.replace(/\n/g, "<br/>");
     return (
       <div>
         <Jumbotron>
           <div className="container">
-            <h1>{intro.motto}</h1>
+            <h1>{this.state.motto}</h1>
 
-            <p>{intro.message}</p>
+            <div dangerouslySetInnerHTML={{__html:  html}}>
+            </div>
           </div>
         </Jumbotron>
       </div>

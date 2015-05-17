@@ -75,7 +75,7 @@ let SettingMain = React.createClass({
     var base = ipc.sendSync('get-base-dir');
     return (
       <selction>
-        <PageHeader>메인화면 설정
+        <PageHeader>메인 설정
           <small>: 첫 화면을 설정합니다.</small>
         </PageHeader>
 

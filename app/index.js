@@ -82,6 +82,14 @@ ipc.on('request-save-menu', function (event, arg) {
   });
 });
 
+ipc.on('request-save-file', function (event, file, data) {
+  var name = `${__dirname}/${file}`;
+  var json = JSON.stringify(data, null, '  ');
+  fs.writeFile(name, json, {encoding: 'utf-8'}, function (err) {
+    event.sender.send('response-save-file', !err);
+  });
+});
+
 ipc.on('get-base-dir', function (event, arg) {
   event.returnValue = `${__dirname}/`;
 });
