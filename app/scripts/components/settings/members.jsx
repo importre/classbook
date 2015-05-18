@@ -47,13 +47,13 @@ let SettingMembers = React.createClass({
               </Col>
               <Col sm={9}>
                 <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='user'/>}
-                       ref={'studentName' + i}
+                       refs={'studentName' + i}
                        value={this.state.students[i].name}/>
                 <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='heart'/>}
-                       ref={'studentHeart' + i}
+                       refs={'studentHeart' + i}
                        value={this.state.students[i].heart}/>
                 <Input bsSize="small" type='textarea' addonBefore={<Glyphicon glyph='envelope'/>}
-                       ref={'studentEnvelope' + i}
+                       refs={'studentEnvelope' + i}
                        value={this.state.students[i].envelope}/>
               </Col>
             </Row>
@@ -88,13 +88,13 @@ let SettingMembers = React.createClass({
             </Col>
             <Col sm={10}>
               <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='user'/>}
-                     ref='teacherName'
+                     refs='teacherName'
                      value={this.state.teacher.name}/>
               <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='heart'/>}
-                     ref='teacherHeart'
+                     refs='teacherHeart'
                      value={this.state.teacher.heart}/>
               <Input bsSize="small" type='textarea' addonBefore={<Glyphicon glyph='envelope'/>}
-                     ref='teacherEnvelope'
+                     refs='teacherEnvelope'
                      value={this.state.teacher.envelope}/>
             </Col>
           </Row>

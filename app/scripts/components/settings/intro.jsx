@@ -53,12 +53,12 @@ let SettingIntro = React.createClass({
 
         <form className='form-horizontal'>
           <Input type='text' label='Motto' ref='motto'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.motto}
                  onChange={this.handleChanged}
                  bsStyle={this.state.mottoStyle}/>
           <Input type='textarea' label='Message' ref='message'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  rows='10'
                  value={this.state.message}
                  onChange={this.handleChanged}
