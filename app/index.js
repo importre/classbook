@@ -128,3 +128,9 @@ ipc.on('open-album-dir', function (event, arg) {
   shell.openItem(dir);
   event.returnValue = true;
 });
+
+ipc.on('open-members-dir', function (event, arg) {
+  var dir = `${__dirname}/images/members`;
+  shell.openItem(dir);
+  event.returnValue = true;
+});

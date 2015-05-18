@@ -15,21 +15,10 @@ let Members = React.createClass({
   render: function () {
     var members = [];
     var max = students.length;
-    for (var i = 0; i < max; i += 2) {
-      if (i == max - 1 && max % 2 == 1) {
-        members.push(
-          <Row className='show-grid'>
-            <Member data={students[i]}/>
-          </Row>
-        );
-      } else {
-        members.push(
-          <Row className='show-grid'>
-            <Member data={students[i]}/>
-            <Member data={students[i + 1]}/>
-          </Row>
-        );
-      }
+    for (var i = 0; i < max; i++) {
+      members.push(
+        <Member data={students[i]}/>
+      );
     }
 
     return (
@@ -40,7 +29,9 @@ let Members = React.createClass({
                  src={teacher.image}
                  className="img-circle"/>
           </Panel>
-          {members}
+          <Row>
+            {members}
+          </Row>
         </div>
       </div>
     );

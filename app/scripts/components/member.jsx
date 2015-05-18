@@ -12,7 +12,7 @@ let Member = React.createClass({
   render: function () {
     return (
       <div>
-        <Col sm={6}>
+        <Col sm={6} md={4}>
           <Panel header={<h1>{this.props.data.name}</h1>} bsStyle='success'>
             <img width="70px" height="70px"
                  src={this.props.data.image}
