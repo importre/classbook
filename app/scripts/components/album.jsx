@@ -14,13 +14,20 @@ let Album = React.createClass({
   mixins: [OverlayMixin],
 
   getInitialState: function () {
-    var dir = "images/events/";
+    var dirs = ipc.sendSync('request-readdir', "images/events/");
+    var events = [];
+    dirs.forEach(dir => {
+      if (!dir.startsWith('.')) {
+        events.push(dir);
+      }
+    });
+
     return {
-      "activeKey": 0,
-      "events": ipc.sendSync('request-readdir', dir),
-      "images": <div />,
+      activeKey: 0,
+      events: events,
+      images: <div />,
       isModalOpen: false,
-      "imageDir" : dir
+      imageDir: "images/events/"
     }
   },
 
@@ -56,8 +63,8 @@ let Album = React.createClass({
     }
 
     this.setState({
-      "activeKey": selectedKey,
-      "images": images
+      activeKey: selectedKey,
+      images: images
     });
   },
 

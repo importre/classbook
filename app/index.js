@@ -31,7 +31,7 @@ app.on('ready', function () {
   });
 
   mainWindow.loadUrl(`file://${__dirname}/index.html`);
-  mainWindow.maximize();
+  //mainWindow.maximize();
 
   try {
     var bs = require("browser-sync").create();
@@ -125,6 +125,6 @@ ipc.on('request-copy-slide', function (event, index) {
 
 ipc.on('open-album-dir', function (event, arg) {
   var dir = `${__dirname}/images/events`;
-  shell.showItemInFolder(dir);
+  shell.openItem(dir);
   event.returnValue = true;
 });
