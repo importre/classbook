@@ -18,7 +18,7 @@ let Settings = React.createClass({
   render: function () {
     return (
       <div className='container'>
-        <TabbedArea defaultActiveKey={1} animation={false}>
+        <TabbedArea defaultActiveKey={4} animation={false}>
           <TabPane eventKey={1} tab='메뉴 설정'>
             <SettingToolbar />
           </TabPane>
