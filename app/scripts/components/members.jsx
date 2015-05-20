@@ -31,6 +31,8 @@ let Members = React.createClass({
 
     var envelope = this.state.teacher.envelope || '';
     var html = envelope.replace(/\n/g, "<br/>");
+    var image = this.state.teacher.image || 'images/avatar.svg';
+
     return (
       <div>
         <div className="container">
@@ -39,7 +41,7 @@ let Members = React.createClass({
               <Col sm={2}>
                 <div className="text-center">
                   <img width="70px" height="70px"
-                       src={this.state.teacher.image}
+                       src={image}
                        className="img-circle"/>
                 </div>
               </Col>
