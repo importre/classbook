@@ -8,10 +8,20 @@ let Students = React.createClass({
 
   getInitialState: function () {
     var students = JSON.parse(ipc.sendSync('read-file', 'data/students.json'));
+    var avatars = ipc.sendSync('request-readdir', "images/members/");
+    if (avatars.length > 1) {
+      avatars.splice(0, 1);
+    }
+
+    var min  = students.length > avatars.length ? avatars.length : students.length;
+    for (var i = 0; i < min; i++) {
+      students[i].image = 'images/members/' + avatars[i];
+    }
+
     return {
       numOfStudents: students.length,
       students: students,
-      avatars: ipc.sendSync('request-readdir', "images/members/")
+      avatars: avatars
     }
   },
 
@@ -28,19 +38,11 @@ let Students = React.createClass({
   },
 
   handleMemberChanged: function (id) {
-    var len = this.state.avatars.length;
-    var idx = id + 1;
-    var image = 'images/avatar.svg';
-    if (0 <= idx && idx < len) {
-      image = this.state.avatars[idx];
-    }
-
     var students = this.state.students;
     students[id] = {
       name: this.refs['studentName' + id].getValue(),
       heart: this.refs['studentHeart' + id].getValue(),
-      envelope: this.refs['studentEnvelope' + id].getValue(),
-      image: image
+      envelope: this.refs['studentEnvelope' + id].getValue()
     };
     this.setState({students: students});
   },
@@ -54,13 +56,19 @@ let Students = React.createClass({
       for (i = 0; i < n; i++)
         students.pop();
     } else {
-      for (i = 0; i < -n; i++)
+      for (i = 0; i < -n; i++) {
+        var size = students.length;
+        var image = 'images/avatar.svg';
+        if (this.state.avatars.length > size) {
+          image = 'images/members/' + this.state.avatars[size];
+        }
         students.push({
           name: '',
           heart: '',
           envelop: '',
-          image: 'images/avatar.svg'
+          image: image
         });
+      }
     }
     this.setState({
       students: students
@@ -107,10 +115,13 @@ let Students = React.createClass({
 
     return (
       <selction>
-        <PageHeader>학생들 설정</PageHeader>
+        <PageHeader>학생들 설정
+          <small>: 학생 수 설정 -> 적용 -> 학생 내용 작성 -> 저장</small>
+        </PageHeader>
 
         <Grid>
-          <Row>
+          <Row
+            >
             <Col sm={3}>
               <Input type='number' ref='numOfStudents'
                      addonBefore='학생 수'

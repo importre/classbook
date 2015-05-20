@@ -41,7 +41,9 @@ let Teacher = React.createClass({
   render: function () {
     return (
       <selction>
-        <PageHeader>선생님 설정</PageHeader>
+        <PageHeader>선생님 설정
+          <small>: 설정 후 저장 버튼을 누르세요.</small>
+        </PageHeader>
 
         <Panel bsStyle='info'>
           <Row>
