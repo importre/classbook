@@ -8,6 +8,7 @@ let Teacher = React.createClass({
 
   getInitialState: function () {
     var teacher = JSON.parse(ipc.sendSync('read-file', 'data/teacher.json'));
+    teacher.image = teacher.image || 'images/avatar.svg';
     return {
       teacher: teacher,
       avatars: ipc.sendSync('request-readdir', "images/members/")
@@ -21,11 +22,10 @@ let Teacher = React.createClass({
   },
 
   handleChanged: function () {
-    var idx = 0;
     var len = this.state.avatars.length;
     var image = 'images/avatar.svg';
-    if (0 <= idx && idx < len) {
-      image = 'images/members/' + this.state.avatars[idx];
+    if (len > 0) {
+      image = 'images/members/' + this.state.avatars[0];
     }
 
     var teacher = {
