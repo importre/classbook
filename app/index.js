@@ -24,11 +24,28 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
-  mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 768,
+  const isDevMode = process.argv.indexOf('--dev') >= 0;
+
+  const width = 1280;
+  const height = 768;
+  var opts = {
+    width: width,
+    height: height,
     resizable: true
-  });
+  };
+
+  if (isDevMode) {
+    var atomScreen = require('screen');
+    var displays = atomScreen.getAllDisplays();
+    var ep = displays.length > 1 ? displays[1] : null;
+
+    if (ep) {
+      opts.x = ep.bounds.x + (ep.size.width - width) / 2;
+      opts.y = ep.bounds.y + (ep.size.height - height) / 2;
+    }
+  }
+
+  mainWindow = new BrowserWindow(opts);
 
   mainWindow.loadUrl(`file://${__dirname}/index.html`);
   //mainWindow.maximize();

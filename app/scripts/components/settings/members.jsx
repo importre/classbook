@@ -13,12 +13,9 @@ let SettingMembers = React.createClass({
       numOfStudents: students.length,
       studentComponents: [],
       students: students,
-      teacher: teacher
+      teacher: teacher,
+      avatars: ipc.sendSync('request-readdir', "images/members/")
     }
-  },
-
-  componentDidMount: function () {
-    this.applyNumOfStudents();
   },
 
   handleChanged: function () {
@@ -27,15 +24,83 @@ let SettingMembers = React.createClass({
     });
   },
 
+  handleMemberChanged: function (id) {
+    var len = this.state.avatars.length;
+    var idx = id + 1;
+    var image = 'images/avatar.svg';
+    if (0 <= idx && idx < len) {
+      image = this.state.avatars[idx];
+    }
+
+    if (id < 0) {
+      var teacher = {
+        name: this.refs.teacherName.getValue(),
+        heart: this.refs.teacherHeart.getValue(),
+        envelope: this.refs.teacherEnvelope.getValue(),
+        image: image
+      };
+
+      this.setState({teacher: teacher});
+    } else {
+      var students = this.state.students;
+      students[id] = {
+        name: this.refs['studentName' + id].getValue(),
+        heart: this.refs['studentHeart' + id].getValue(),
+        envelope: this.refs['studentEnvelope' + id].getValue(),
+        image: image
+      };
+      this.setState({students: students});
+    }
+  },
+
   openMembers: function () {
     ipc.sendSync('open-members-dir');
   },
 
   applyNumOfStudents: function () {
+    var students = this.state.students;
+    var after = this.refs.numOfStudents.getValue();
+    var before = this.state.students.length;
+    var n = before - after;
+    if (n > 0) {
+      for (var i = 0; i < n; i++)
+        students.pop();
+    } else {
+      for (var i = 0; i < -n; i++)
+        students.push({
+          name: '',
+          heart: '',
+          envelop: '',
+          image: 'images/avatar.svg'
+        });
+    }
+    this.setState({
+      students: students
+    });
+  },
+
+  render: function () {
+    var saveButton = null;
+    if (this.state.numOfStudents > 0) {
+      saveButton = <Button bsStyle='primary' onClick={this.saveStudents}>저장</Button>;
+    }
+
     var components = [];
-    for (var i = 0; i < this.state.numOfStudents; i++) {
+    for (var i = 0; i < this.state.students.length; i++) {
+      var i1 = <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='user'/>}
+                      ref={'studentName' + i}
+                      onChange={this.handleMemberChanged.bind(this, i)}
+                      value={this.state.students[i].name}/>;
+      var i2 = <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='heart'/>}
+                      ref={'studentHeart' + i}
+                      onChange={this.handleMemberChanged.bind(this, i)}
+                      value={this.state.students[i].heart}/>;
+      var i3 = <Input bsSize="small" type='textarea' addonBefore={<Glyphicon glyph='envelope'/>}
+                      ref={'studentEnvelope' + i}
+                      onChange={this.handleMemberChanged.bind(this, i)}
+                      value={this.state.students[i].envelope}/>;
       components.push(
-        <Col sm={6} md={4}>
+        <Col sm={6} md={4} key={'student' + i}>
           <Panel bsStyle='success'>
             <Row>
               <Col sm={3}>
@@ -45,36 +110,28 @@ let SettingMembers = React.createClass({
                        className="img-circle"/>
                 </div>
               </Col>
-              <Col sm={9}>
-                <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='user'/>}
-                       refs={'studentName' + i}
-                       value={this.state.students[i].name}/>
-                <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='heart'/>}
-                       refs={'studentHeart' + i}
-                       value={this.state.students[i].heart}/>
-                <Input bsSize="small" type='textarea' addonBefore={<Glyphicon glyph='envelope'/>}
-                       refs={'studentEnvelope' + i}
-                       value={this.state.students[i].envelope}/>
-              </Col>
+              <Col sm={9}>{i1} {i2} {i3}</Col>
             </Row>
           </Panel>
         </Col>
       );
     }
 
-    this.setState({
-      studentsComponents: components
-    });
-  },
-
-  render: function () {
-    var students = null;
-    if (this.state.numOfStudents > 0) {
-      students = <Button bsStyle='primary' onClick={this.saveStudents}>저장</Button>;
-    }
-
     return (
       <selction>
+        <PageHeader>프로필 사진 설정</PageHeader>
+
+        <Row>
+          <Col sm={3}>
+            <Button bsStyle='primary'
+                    style={{'margin-bottom': '10px'}}
+                    onClick={this.openMembers}>멤버 폴더 열기</Button>
+          </Col>
+          <Col sm={9}>
+            프로필 사진을 넣으세요. 선생님부터 이름 순서대로 자동으로 들어갑니다.
+          </Col>
+        </Row>
+
         <PageHeader>선생님 설정</PageHeader>
 
         <Panel bsStyle='info'>
@@ -88,13 +145,16 @@ let SettingMembers = React.createClass({
             </Col>
             <Col sm={10}>
               <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='user'/>}
-                     refs='teacherName'
+                     ref='teacherName'
+                     onChange={this.handleMemberChanged.bind(this, -1)}
                      value={this.state.teacher.name}/>
               <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='heart'/>}
-                     refs='teacherHeart'
+                     ref='teacherHeart'
+                     onChange={this.handleMemberChanged.bind(this, -1)}
                      value={this.state.teacher.heart}/>
               <Input bsSize="small" type='textarea' addonBefore={<Glyphicon glyph='envelope'/>}
-                     refs='teacherEnvelope'
+                     ref='teacherEnvelope'
+                     onChange={this.handleMemberChanged.bind(this, -1)}
                      value={this.state.teacher.envelope}/>
             </Col>
           </Row>
@@ -121,17 +181,12 @@ let SettingMembers = React.createClass({
                 적용
               </Button>
             </Col>
-            <Col sm={1}>
-              <div className='text-right'>
-                <Button bsStyle='primary' onClick={this.openMembers}>멤버 폴더 열기</Button>
-              </div>
-            </Col>
           </Row>
         </Grid>
 
-        <Row>{this.state.studentsComponents}</Row>
+        <Grid>{components}</Grid>
 
-        <div className='text-right'>{students}</div>
+        <div className='text-right'>{saveButton}</div>
       </selction>
     );
   }

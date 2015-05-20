@@ -94,13 +94,13 @@ gulp.task('electron', ['browserifyDev'], function () {
   var cmd = '';
   switch (process.platform) {
     case 'darwin':
-      cmd = './node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron dist/app';
+      cmd = './node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron --dev dist/app';
       break;
     case 'win32':
-      cmd = 'node_modules\\electron-prebuilt\\dist\\electron.exe dist\\app';
+      cmd = 'node_modules\\electron-prebuilt\\dist\\electron.exe --dev dist\\app';
       break;
     case 'linux':
-      cmd = './node_modules/electron-prebuilt/dist/electron dist/app';
+      cmd = './node_modules/electron-prebuilt/dist/electron --dev dist/app';
       break;
     default:
       console.log(process.platform + ' is not supported.');
