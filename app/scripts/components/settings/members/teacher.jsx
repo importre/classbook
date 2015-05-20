@@ -25,7 +25,7 @@ let Teacher = React.createClass({
     var len = this.state.avatars.length;
     var image = 'images/avatar.svg';
     if (0 <= idx && idx < len) {
-      image = this.state.avatars[idx];
+      image = 'images/members/' + this.state.avatars[idx];
     }
 
     var teacher = {

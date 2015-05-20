@@ -48,7 +48,7 @@ let SettingIntro = React.createClass({
     return (
       <selction>
         <PageHeader>소개 설정
-          <small>: 교훈 및 선생님 말씀을 작성합니다.</small>
+          <small>: 급훈 및 선생님 말씀을 작성합니다.</small>
         </PageHeader>
 
         <form className='form-horizontal'>

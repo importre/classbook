@@ -42,7 +42,8 @@ let Students = React.createClass({
     students[id] = {
       name: this.refs['studentName' + id].getValue(),
       heart: this.refs['studentHeart' + id].getValue(),
-      envelope: this.refs['studentEnvelope' + id].getValue()
+      envelope: this.refs['studentEnvelope' + id].getValue(),
+      image: students[id].image
     };
     this.setState({students: students});
   },
