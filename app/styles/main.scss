@@ -1,5 +1,15 @@
 @import 'node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
-@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+@font-face {
+  font-family: 'Jeju Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../data/JejuGothic-Regular.eot);
+  src: url(../data/JejuGothic-Regular.eot?#iefix) format('embedded-opentype'),
+  url(../data/JejuGothic-Regular.woff2) format('woff2'),
+  url(../data/JejuGothic-Regular.woff) format('woff'),
+  url(../data/JejuGothic-Regular.ttf) format('truetype');
+}
 
 *, *:before, *:after {
   box-sizing: border-box;
