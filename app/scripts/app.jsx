@@ -13,6 +13,7 @@ window.React = React;
 var { Navbar, Nav, NavItem } = bs;
 var { Route, DefaultRoute, RouteHandler, Link, Redirect} = Router;
 var NavItemLink = rrb.NavItemLink;
+var path = '/';
 
 var App = React.createClass({
 
@@ -22,6 +23,20 @@ var App = React.createClass({
       "toolbar": json,
       "editMode": false
     }
+  },
+
+  getDday: function (when) {
+    var now = new Date();
+    var then = new Date(when);
+    var gap = now.getTime() - then.getTime();
+    var dday = Math.floor(gap / (1000 * 60 * 60 * 24));
+    if (dday < 0) {
+      dday *= -1;
+      dday = "D-" + dday;
+    } else {
+      dday = "D+" + dday;
+    }
+    return dday;
   },
 
   toggleEditMode: function (editMode) {
@@ -37,7 +52,7 @@ var App = React.createClass({
   render: function () {
     var settings = null;
     //if (this.state.editMode) {
-      settings = <NavItemLink to="settings">{this.state.toolbar.settings}</NavItemLink>;
+    settings = <NavItemLink to="settings">{this.state.toolbar.settings}</NavItemLink>;
     //}
 
     return (
@@ -49,6 +64,7 @@ var App = React.createClass({
             <NavItemLink to="album">{this.state.toolbar.album}</NavItemLink>
           </Nav>
           <Nav right>
+            <NavItemLink to={path}>{this.getDday('2015/05/22')}</NavItemLink>
             {{settings}}
           </Nav>
         </Navbar>
@@ -71,6 +87,7 @@ var routes = (
 
 Router.run(routes, function (Handler, state) {
   var params = state.params;
+  path = state.path;
   React.render(<Handler params={params}/>, document.body);
 });
 

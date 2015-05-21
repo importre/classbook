@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/importre/classbook#readme",
   "dependencies": {
+    "moment": "^2.10.3",
     "react": "^0.13.3",
     "react-bootstrap": "^0.21.2",
+    "react-datepicker": "^0.7.0",
     "react-router": "^0.13.3",
     "react-router-bootstrap": "^0.13.4",
     "superagent": "^1.2.0"

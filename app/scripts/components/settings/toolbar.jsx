@@ -1,13 +1,15 @@
 import React from 'react'
 import bs from 'react-bootstrap'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
 
-var { Panel, PageHeader, Input, Button } = bs;
+var { PageHeader, Input, Button } = bs;
 var { Grid, Row, Col } = bs;
 
 let SettingToolbar = React.createClass({
 
   getInitialState: function () {
-    return JSON.parse(ipc.sendSync('read-file', 'data/toolbar.json'))
+    return JSON.parse(ipc.sendSync('read-file', 'data/toolbar.json'));
   },
 
   savedMenu: function (result) {
@@ -16,12 +18,19 @@ let SettingToolbar = React.createClass({
     }
   },
 
+  handleStartDateChange: function (date) {
+    this.setState({
+      date: date.toISOString()
+    });
+  },
+
   save: function () {
     var menu = {
       'title': this.refs.title.getValue(),
       'intro': this.refs.intro.getValue(),
       'members': this.refs.members.getValue(),
       'album': this.refs.album.getValue(),
+      'date': moment(this.state.date),
       'settings': 'Settings'
     };
 
@@ -86,6 +95,18 @@ let SettingToolbar = React.createClass({
                  value={this.state.album}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuAlbumStyle}/>
+
+          <Grid>
+            <Row>
+              <Col xs={1}>D-Day</Col>
+              <Col xsOffset={1}>
+                <DatePicker
+                  weekStart="0"
+                  selected={moment(this.state.date)}
+                  onChange={this.handleStartDateChange}/>
+              </Col>
+            </Row>
+          </Grid>
 
           <div className='text-right'>
             <Button bsStyle='primary' onClick={this.save}>저장</Button>
