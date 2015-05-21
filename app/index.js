@@ -131,12 +131,16 @@ ipc.on('request-copy-slide', function (event, index) {
     properties: ['openFile']
   };
   dialog.showOpenDialog(mainWindow, options, function(files) {
-    var src = files[0];
-    var ext = path.extname(src);
-    var dst = `${__dirname}/`;
-    var dstName = `images/slide${index}${ext}`;
-    fs.createReadStream(src).pipe(fs.createWriteStream(dst + dstName));
-    event.sender.send('response-copy-slide', index, dstName);
+    if (files && files.length > 0) {
+      var src = files[0];
+      var ext = path.extname(src);
+      var dst = `${__dirname}/`;
+      var dstName = `images/slide${index}${ext}`;
+      fs.createReadStream(src).pipe(fs.createWriteStream(dst + dstName));
+      event.sender.send('response-copy-slide', index, dstName);
+    } else {
+      event.sender.send('response-copy-slide', index, null);
+    }
   });
 });
 
