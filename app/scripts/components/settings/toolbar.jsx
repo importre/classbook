@@ -96,17 +96,14 @@ let SettingToolbar = React.createClass({
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuAlbumStyle}/>
 
-          <Grid>
-            <Row>
-              <Col xs={1}>D-Day</Col>
-              <Col xsOffset={1}>
-                <DatePicker
-                  weekStart="0"
-                  selected={moment(this.state.date)}
-                  onChange={this.handleStartDateChange}/>
-              </Col>
-            </Row>
-          </Grid>
+          <PageHeader>D-Day 설정
+            <small>: 헤어질 날을 설정합니다.</small>
+          </PageHeader>
+
+          <DatePicker
+            weekStart="0"
+            selected={moment(this.state.date)}
+            onChange={this.handleStartDateChange}/>
 
           <div className='text-right'>
             <Button bsStyle='primary' onClick={this.save}>저장</Button>
