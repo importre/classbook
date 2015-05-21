@@ -52,9 +52,9 @@ var App = React.createClass({
 
   render: function () {
     var settings = null;
-    //if (this.state.editMode) {
-    settings = <NavItemLink to="settings">{this.state.toolbar.settings}</NavItemLink>;
-    //}
+    if (this.state.editMode) {
+      settings = <NavItemLink to="settings">{this.state.toolbar.settings}</NavItemLink>;
+    }
 
     return (
       <div>
