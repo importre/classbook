@@ -27,10 +27,6 @@ let Member = React.createClass({
               </Col>
               <Col sm={9}>
                 <Row>
-                  <Col xs={2}><Glyphicon glyph='user'/></Col>
-                  <Col xs={10}>{this.props.data.name}</Col>
-                </Row>
-                <Row>
                   <Col xs={2}><Glyphicon glyph='heart'/></Col>
                   <Col xs={10}>{this.props.data.heart}</Col>
                 </Row>

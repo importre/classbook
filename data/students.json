@@ -1,39 +1,51 @@
 [
   {
-    "name": "Student Name",
-    "heart": "1999, 9, 19"
-  },
-  {
+    "heart": "1999, 9, 19",
+    "image": "images/members/avatar-02.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-03.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-04.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-05.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-06.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-07.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-08.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-09.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-10.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-11.svg",
     "name": "Student Name"
   },
   {
+    "image": "images/members/avatar-12.svg",
+    "name": "Student Name"
+  },
+  {
+    "image": "images/members/avatar-13.svg",
     "name": "Student Name"
   }
 ]

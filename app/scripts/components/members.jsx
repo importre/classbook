@@ -47,10 +47,6 @@ let Members = React.createClass({
               </Col>
               <Col sm={10}>
                 <Row>
-                  <Col xs={1}><Glyphicon glyph='user'/></Col>
-                  <Col xs={11}>{this.state.teacher.name}</Col>
-                </Row>
-                <Row>
                   <Col xs={1}><Glyphicon glyph='heart'/></Col>
                   <Col xs={11}>{this.state.teacher.heart}</Col>
                 </Row>
