@@ -7,6 +7,7 @@ import Intro from './components/intro.jsx'
 import Members from './components/members.jsx'
 import Album from './components/album.jsx'
 import Settings from './components/settings.jsx'
+import moment from 'moment'
 
 window.React = React;
 
@@ -27,7 +28,7 @@ var App = React.createClass({
 
   getDday: function (when) {
     var now = new Date();
-    var then = new Date(when);
+    var then = when ? new Date(when) : now;
     var gap = now.getTime() - then.getTime();
     var dday = Math.floor(gap / (1000 * 60 * 60 * 24));
     if (dday < 0) {
@@ -64,7 +65,7 @@ var App = React.createClass({
             <NavItemLink to="album">{this.state.toolbar.album}</NavItemLink>
           </Nav>
           <Nav right>
-            <NavItemLink to={path}>{this.getDday('2015/05/22')}</NavItemLink>
+            <NavItemLink to={path}>{this.getDday(this.state.toolbar.date)}</NavItemLink>
             {{settings}}
           </Nav>
         </Navbar>

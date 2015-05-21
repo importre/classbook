@@ -30,7 +30,7 @@ let SettingToolbar = React.createClass({
       'intro': this.refs.intro.getValue(),
       'members': this.refs.members.getValue(),
       'album': this.refs.album.getValue(),
-      'date': moment(this.state.date),
+      'date': this.state.date,
       'settings': 'Settings'
     };
 
