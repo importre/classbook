@@ -62,15 +62,14 @@ let SettingMain = React.createClass({
   },
 
   openImage: function (index) {
-    var self = this;
-    ipc.on('response-copy-slide', function (index, image) {
-      if (image) {
-        var slides = self.state.slides;
-        slides[index].image = image;
-        self.setState(slides);
-      }
-    });
-    ipc.send('request-copy-slide', index);
+    var old = this.state.slides[index].image;
+    var image = ipc.sendSync('request-copy-slide', old);
+
+    if (image) {
+      var slides = this.state.slides;
+      slides[index].image = image;
+      this.setState(slides);
+    }
   },
 
   render: function () {

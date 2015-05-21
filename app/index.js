@@ -89,6 +89,7 @@ let editMode = function () {
 
 ipc.on('reload', function (event, arg) {
   mainWindow.reloadIgnoringCache();
+  event.returnValue = null;
 });
 
 ipc.on('request-save-menu', function (event, arg) {
@@ -124,22 +125,30 @@ ipc.on('request-write-file', function (event, name, data) {
   });
 });
 
-ipc.on('request-copy-slide', function (event, index) {
+ipc.on('request-copy-slide', function (event, old) {
   var options = {
     title: 'Select an image',
     filters: [{name: 'Images', extensions: ['jpg', 'jpeg', 'png']}],
     properties: ['openFile']
   };
+
   dialog.showOpenDialog(mainWindow, options, function(files) {
     if (files && files.length > 0) {
       var src = files[0];
-      var ext = path.extname(src);
       var dst = `${__dirname}/`;
-      var dstName = `images/slide${index}${ext}`;
+      var dstName = `images/slide_${path.basename(src)}`;
       fs.createReadStream(src).pipe(fs.createWriteStream(dst + dstName));
-      event.sender.send('response-copy-slide', index, dstName);
+
+      if (old !== 'images/carousel.png') {
+        var file = `${__dirname}/${old}`;
+        if (fs.existsSync(file)) {
+          fs.unlinkSync(file);
+        }
+      }
+
+      event.returnValue = dstName;
     } else {
-      event.sender.send('response-copy-slide', index, null);
+      event.returnValue = null;
     }
   });
 });
