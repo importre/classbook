@@ -48,15 +48,15 @@ let Members = React.createClass({
               <Col sm={10}>
                 <Row>
                   <Col xs={1}><Glyphicon glyph='user'/></Col>
-                  <Col>{this.state.teacher.name}</Col>
+                  <Col xs={11}>{this.state.teacher.name}</Col>
                 </Row>
                 <Row>
                   <Col xs={1}><Glyphicon glyph='heart'/></Col>
-                  <Col>{this.state.teacher.heart}</Col>
+                  <Col xs={11}>{this.state.teacher.heart}</Col>
                 </Row>
                 <Row>
                   <Col xs={1}><Glyphicon glyph='envelope'/></Col>
-                  <Col><span dangerouslySetInnerHTML={{__html:  html}}></span></Col>
+                  <Col xs={11}><span dangerouslySetInnerHTML={{__html:  html}}></span></Col>
                 </Row>
               </Col>
             </Row>
