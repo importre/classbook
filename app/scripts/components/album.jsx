@@ -131,6 +131,7 @@ let Album = React.createClass({
         <div className='modal-body'>
           <Carousel activeIndex={this.state.selectedIndex}
                     direction={this.state.direction}
+                    id='carousel-album'
                     onSelect={this.handleCarousel}>
             {items}
           </Carousel>
