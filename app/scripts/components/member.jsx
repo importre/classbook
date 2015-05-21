@@ -26,18 +26,18 @@ let Member = React.createClass({
                 </div>
               </Col>
               <Col sm={9}>
-                <p>
-                  <Glyphicon glyph='user'/> {this.props.data.name}
-                </p>
-
-                <p>
-                  <Glyphicon glyph='heart'/> {this.props.data.heart}
-                </p>
-                <p>
-                  <Glyphicon glyph='envelope'/>
-
-                  <div dangerouslySetInnerHTML={{__html:  html}}></div>
-                </p>
+                <Row>
+                  <Col xs={2}><Glyphicon glyph='user'/></Col>
+                  <Col>{this.props.data.name}</Col>
+                </Row>
+                <Row>
+                  <Col xs={2}><Glyphicon glyph='heart'/></Col>
+                  <Col>{this.props.data.heart}</Col>
+                </Row>
+                <Row>
+                  <Col xs={2}><Glyphicon glyph='envelope'/></Col>
+                  <Col><span dangerouslySetInnerHTML={{__html:  html}}></span></Col>
+                </Row>
               </Col>
             </Row>
           </Panel>

@@ -52,6 +52,10 @@ let Album = React.createClass({
     var files = ipc.sendSync('request-readdir', baseDir);
     var images = [];
     for (var i = 0; i < files.length; i++) {
+      if (files[i].startsWith('.')) {
+        continue;
+      }
+
       images.push(
         <Col sm={4}>
           <div className="thumbnail"
