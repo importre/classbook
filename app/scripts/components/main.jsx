@@ -34,8 +34,6 @@ let Main = React.createClass({
             {items}
           </Carousel>
         </div>
-
-        <hr className="featurette-divider"/>
       </div>
     );
   }

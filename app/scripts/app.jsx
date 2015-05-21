@@ -89,6 +89,6 @@ var routes = (
 Router.run(routes, function (Handler, state) {
   var params = state.params;
   path = state.path;
-  React.render(<Handler params={params}/>, document.body);
+  React.render(<Handler params={params}/>, document.getElementById('contents'));
 });
 
