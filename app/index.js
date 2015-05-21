@@ -78,8 +78,8 @@ app.on('ready', function () {
 });
 
 ipc.on('request-readdir', function (event, arg) {
-  var dir = `${__dirname}/`;
-  event.returnValue = fs.readdirSync(dir + arg);
+  var dir = `${__dirname}/${arg}`;
+  event.returnValue = fs.existsSync(dir) ? fs.readdirSync(dir) : null;
 });
 
 let editMode = function () {
@@ -159,8 +159,14 @@ ipc.on('open-slides-dir', function (event, arg) {
   event.returnValue = true;
 });
 
-ipc.on('open-album-dir', function (event, arg) {
+ipc.on('open-image-album-dir', function (event, arg) {
   var dir = `${__dirname}/images/events`;
+  shell.openItem(dir);
+  event.returnValue = true;
+});
+
+ipc.on('open-video-album-dir', function (event, arg) {
+  var dir = `${__dirname}/movies`;
   shell.openItem(dir);
   event.returnValue = true;
 });

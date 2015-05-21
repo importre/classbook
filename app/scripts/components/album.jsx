@@ -14,18 +14,25 @@ let Album = React.createClass({
   mixins: [OverlayMixin],
 
   getInitialState: function () {
+    var movies = ipc.sendSync('request-readdir', "movies/");
     var dirs = ipc.sendSync('request-readdir', "images/events/");
     var events = [];
+
     dirs.forEach(dir => {
       if (!dir.startsWith('.')) {
         events.push(dir);
       }
     });
 
+    if (movies) {
+      events.push('동영상');
+    }
+
     return {
       activeKey: 0,
       events: events,
       images: <div />,
+      movies: movies,
       isModalOpen: false,
       imageDir: "images/events/"
     }
@@ -50,20 +57,38 @@ let Album = React.createClass({
     const event = this.state.events[selectedKey];
     const baseDir = this.state.imageDir + event;
     var files = ipc.sendSync('request-readdir', baseDir);
-    var images = [];
-    for (var i = 0; i < files.length; i++) {
-      if (files[i].startsWith('.')) {
-        continue;
-      }
 
-      images.push(
-        <Col sm={4}>
-          <div className="thumbnail"
-               onClick={this.showImage.bind(this, event, files, i)}>
-            <img src={baseDir + "/" + files[i]}/>
-          </div>
-        </Col>
-      );
+    var images = [];
+    if (files) {
+      for (var i = 0; i < files.length; i++) {
+        if (files[i].startsWith('.')) {
+          continue;
+        }
+
+        images.push(
+          <Col sm={4}>
+            <div className="thumbnail"
+                 onClick={this.showImage.bind(this, event, files, i)}>
+              <img src={baseDir + "/" + files[i]}/>
+            </div>
+          </Col>
+        );
+      }
+    } else {
+      if (selectedKey == this.state.events.length - 1) {
+        this.state.movies.forEach(movie=> {
+          movie = 'movies/' + movie;
+          images.push(
+            <Col sm={6}>
+              <div className="text-center">
+                <video width="320" height="240" controls>
+                  <source src={movie}/>
+                </video>
+              </div>
+            </Col>
+          );
+        });
+      }
     }
 
     this.setState({

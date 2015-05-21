@@ -29,6 +29,11 @@ gulp.task('clean', function (cb) {
   del(['dist', 'release'], cb);
 });
 
+gulp.task('movies', function () {
+  return gulp.src('movies/**/*')
+    .pipe(gulp.dest('dist/app/movies'));
+});
+
 gulp.task('images', function () {
   return gulp.src('images/**/*')
     .pipe(gulp.dest('dist/app/images'));
@@ -50,7 +55,7 @@ gulp.task('etc', function () {
 });
 
 gulp.task('copy', function () {
-  gulp.start(['fonts', 'images', 'data', 'etc']);
+  gulp.start(['fonts', 'images', 'movies', 'data', 'etc']);
 });
 
 gulp.task('browserify', function () {
