@@ -76,22 +76,22 @@ let SettingToolbar = React.createClass({
 
         <form className='form-horizontal'>
           <Input type='text' label='Title' ref='title'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.title}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuTitleStyle}/>
           <Input type='text' label='Intro' ref='intro'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.intro}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuIntroStyle}/>
           <Input type='text' label='Members' ref='members'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.members}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuMembersStyle}/>
           <Input type='text' label='Album' ref='album'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.album}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuAlbumStyle}/>

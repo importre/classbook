@@ -48,17 +48,17 @@ let SettingIntro = React.createClass({
     return (
       <selction>
         <PageHeader>소개 설정
-          <small>: 교훈 및 선생님 말씀을 작성합니다.</small>
+          <small>: 급훈 및 선생님 말씀을 작성합니다.</small>
         </PageHeader>
 
         <form className='form-horizontal'>
           <Input type='text' label='Motto' ref='motto'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.motto}
                  onChange={this.handleChanged}
                  bsStyle={this.state.mottoStyle}/>
           <Input type='textarea' label='Message' ref='message'
-                 labelClassName='col-xs-1' wrapperClassName='col-xs-11'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  rows='10'
                  value={this.state.message}
                  onChange={this.handleChanged}

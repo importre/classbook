@@ -1,46 +1,69 @@
 import React from 'react'
 import bs from 'react-bootstrap'
 import Member from './member.jsx'
-import teacher from '../../../data/teacher.json'
-import students from '../../../data/students.json'
 
-var { Jumbotron, Panel, Grid, Row, Col } = bs;
+var { Glyphicon, Panel, Grid, Row, Col } = bs;
 
 let Members = React.createClass({
 
   getInitialState: function () {
-    return {}
+    var teacher = ipc.sendSync('read-file', 'data/teacher.json');
+    var students = ipc.sendSync('read-file', 'data/students.json');
+    return {
+      teacher: JSON.parse(teacher),
+      students: JSON.parse(students)
+    };
   },
 
   render: function () {
     var members = [];
-    var max = students.length;
-    for (var i = 0; i < max; i += 2) {
-      if (i == max - 1 && max % 2 == 1) {
-        members.push(
-          <Row className='show-grid'>
-            <Member data={students[i]}/>
-          </Row>
-        );
-      } else {
-        members.push(
-          <Row className='show-grid'>
-            <Member data={students[i]}/>
-            <Member data={students[i + 1]}/>
-          </Row>
-        );
+    var size = this.state.students.length;
+
+    for (var i = 0; i < size; i++) {
+      var student = this.state.students[i];
+      if (!student.image) {
+        student.image= 'images/avatar.svg';
       }
+      members.push(
+        <Member data={student}/>
+      );
     }
+
+    var envelope = this.state.teacher.envelope || '';
+    var html = envelope.replace(/\n/g, "<br/>");
+    var image = this.state.teacher.image || 'images/avatar.svg';
 
     return (
       <div>
         <div className="container">
-          <Panel header={<h1>{teacher.name}</h1>} bsStyle='info'>
-            <img width="70px" height="70px"
-                 src={teacher.image}
-                 className="img-circle"/>
+          <Panel header={<h1>{this.state.teacher.name}</h1>} bsStyle='info'>
+            <Row>
+              <Col sm={2}>
+                <div className="text-center">
+                  <img width="70px" height="70px"
+                       src={image}
+                       className="img-circle"/>
+                </div>
+              </Col>
+              <Col sm={10}>
+                <p>
+                  <Glyphicon glyph='user'/> {this.state.teacher.name}
+                </p>
+
+                <p>
+                  <Glyphicon glyph='heart'/> {this.state.teacher.heart}
+                </p>
+                <p>
+                  <Glyphicon glyph='envelope'/>
+
+                  <div dangerouslySetInnerHTML={{__html:  html}}></div>
+                </p>
+              </Col>
+            </Row>
           </Panel>
-          {members}
+          <Row>
+            {members}
+          </Row>
         </div>
       </div>
     );

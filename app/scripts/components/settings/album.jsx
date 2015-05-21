@@ -17,9 +17,7 @@ let SettingAlbum = React.createClass({
           <small>: 앨범 폴더를 열어서 사진을 넣으세요.</small>
         </PageHeader>
 
-        <div className='text-right'>
-          <Button bsStyle='primary' onClick={this.openAlbum}>앨 범폴더 열기</Button>
-        </div>
+          <Button bsStyle='primary' onClick={this.openAlbum}>앨범 폴더 열기</Button>
       </selction>
     );
   }
