@@ -27,7 +27,7 @@ app.on('ready', function () {
   const isDevMode = process.argv.indexOf('--dev') >= 0;
 
   const width = 1280;
-  const height = 768;
+  const height = 800;
   var opts = {
     width: width,
     height: height,
@@ -48,7 +48,7 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow(opts);
 
   mainWindow.loadUrl(`file://${__dirname}/index.html`);
-  //mainWindow.maximize();
+  mainWindow.maximize();
 
   try {
     var bs = require("browser-sync").create();
@@ -151,6 +151,12 @@ ipc.on('request-copy-slide', function (event, old) {
       event.returnValue = null;
     }
   });
+});
+
+ipc.on('open-slides-dir', function (event, arg) {
+  var dir = `${__dirname}/images/slides`;
+  shell.openItem(dir);
+  event.returnValue = true;
 });
 
 ipc.on('open-album-dir', function (event, arg) {

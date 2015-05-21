@@ -8,7 +8,7 @@ let SettingMain = React.createClass({
 
   getInitialState: function () {
     var json = ipc.sendSync('read-file', 'data/slides.json');
-    return JSON.parse(json)
+    return JSON.parse(json);
   },
 
   save: function () {
@@ -72,6 +72,10 @@ let SettingMain = React.createClass({
     }
   },
 
+  openAlbum: function () {
+    ipc.sendSync('open-slides-dir');
+  },
+
   render: function () {
     var base = ipc.sendSync('get-base-dir');
     return (
@@ -79,6 +83,15 @@ let SettingMain = React.createClass({
         <PageHeader>메인 설정
           <small>: 첫 화면을 설정합니다.</small>
         </PageHeader>
+
+        <Grid>
+          <Row>
+            <Button bsStyle='primary' onClick={this.openAlbum}>폴더 열기</Button> :
+            폴더를 열어서 메인 화면에 나올 사진 3장 넣으세요.
+          </Row>
+        </Grid>
+
+        <br/>
 
         <div>
           <Row>
@@ -121,44 +134,6 @@ let SettingMain = React.createClass({
                      value={this.state.slides[2].desc}
                      onChange={this.handleMenuChanged}
                      bsStyle={this.state.desc3Style}/>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={4}>
-              <div className="thumbnail">
-                <img src={this.state.slides[0].image}/>
-
-                <div className="caption">
-                  <p>Image #1</p>
-                  <div className="text-right">
-                    <Button onClick={this.openImage.bind(this, 0)}>열기</Button>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col sm={4}>
-              <div className="thumbnail">
-                <img src={this.state.slides[1].image}/>
-
-                <div className="caption">
-                  <p>Image #2</p>
-                  <div className="text-right">
-                    <Button onClick={this.openImage.bind(this, 1)}>열기</Button>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            <Col sm={4}>
-              <div className="thumbnail">
-                <img src={this.state.slides[2].image}/>
-
-                <div className="caption">
-                  <p>Image #3</p>
-                  <div className="text-right">
-                    <Button onClick={this.openImage.bind(this, 2)}>열기</Button>
-                  </div>
-                </div>
-              </div>
             </Col>
           </Row>
 

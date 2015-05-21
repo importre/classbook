@@ -6,8 +6,23 @@ var { Button, Carousel, CarouselItem, Col, Grid, Row, Jumbotron } = bs;
 let Main = React.createClass({
 
   getInitialState: function () {
+    var images = ipc.sendSync('request-readdir', "images/slides/");
     var json = ipc.sendSync('read-file', 'data/slides.json');
-    return JSON.parse(json)
+    var data = JSON.parse(json);
+    var i, size = 0;
+
+    if (images) {
+      size = images.length > 3 ? 3 : images.length;
+      for (i = 0; i < size; i++) {
+        data.slides[i].image = 'images/slides/' + images[i];
+        console.log(images[i])
+      }
+    }
+
+    for (i = size; i < 3; i++) {
+      data.slides[i].image = 'images/carousel.png';
+    }
+    return data;
   },
 
   render: function () {

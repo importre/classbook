@@ -2,18 +2,15 @@
   "slides": [
     {
       "title": "title1",
-      "desc": "description1",
-      "image": "images/carousel.png"
+      "desc": "description1"
     },
     {
       "title": "title2",
-      "desc": "description2",
-      "image": "images/carousel.png"
+      "desc": "description2"
     },
     {
       "title": "title3",
-      "desc": "description3",
-      "image": "images/carousel.png"
+      "desc": "description3"
     }
   ]
 }
