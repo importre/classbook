@@ -78,7 +78,7 @@ let SettingIntro = React.createClass({
             <Col sm={6}>
               <Input type='textarea' label='메시지' ref='msg'
                      labelClassName='col-sm-2' wrapperClassName='col-sm-10'
-                     rows='10'
+                     rows='3'
                      value={this.state.msg}
                      onChange={this.handleChanged}
                      bsStyle={this.state.messageStyle}/>

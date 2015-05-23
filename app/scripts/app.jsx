@@ -70,6 +70,11 @@ var App = React.createClass({
           </Nav>
         </Navbar>
         <RouteHandler/>
+        <div id="player">
+          <audio controls="true" preload="true" autoPlay="true" loop="true">
+            <source src="data/bgm.mp3" type="audio/mp3"/>
+          </audio>
+        </div>
       </div>
     );
   }
