@@ -49,13 +49,18 @@ gulp.task('data', function () {
     .pipe(gulp.dest('dist/app/data'));
 });
 
+gulp.task('mp3', function () {
+  return gulp.src('mp3/**/*')
+    .pipe(gulp.dest('dist/app/mp3'));
+});
+
 gulp.task('etc', function () {
   return gulp.src(['app/index.html', 'app/index.js', 'package.json'])
     .pipe(gulp.dest('dist/app'));
 });
 
 gulp.task('copy', function () {
-  gulp.start(['fonts', 'images', 'movies', 'data', 'etc']);
+  gulp.start(['fonts', 'images', 'movies', 'data', 'mp3', 'etc']);
 });
 
 gulp.task('browserify', function () {

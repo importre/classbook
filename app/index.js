@@ -171,6 +171,12 @@ ipc.on('open-video-album-dir', function (event, arg) {
   event.returnValue = true;
 });
 
+ipc.on('open-mp3-dir', function (event, arg) {
+  var dir = `${__dirname}/mp3`;
+  shell.openItem(dir);
+  event.returnValue = true;
+});
+
 ipc.on('open-members-dir', function (event, arg) {
   var dir = `${__dirname}/images/members`;
   shell.openItem(dir);

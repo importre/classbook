@@ -19,10 +19,12 @@ var path = '/';
 var App = React.createClass({
 
   getInitialState: function () {
+    var mp3 = ipc.sendSync('request-readdir', "mp3/");
     var json = JSON.parse(ipc.sendSync('read-file', 'data/toolbar.json'));
     return {
-      "toolbar": json,
-      "editMode": false
+      toolbar: json,
+      editMode: false,
+      mp3: mp3 && mp3.length > 0 && mp3[0].endsWith('mp3') ? 'mp3/' + mp3[0] : null
     }
   },
 
@@ -56,6 +58,15 @@ var App = React.createClass({
       settings = <NavItemLink to="settings">{this.state.toolbar.settings}</NavItemLink>;
     }
 
+    var mp3 = <div id="player">
+      <audio controls="true" preload="true" autoPlay="true" loop="true">
+        <source src={this.state.mp3} type="audio/mp3"/>
+      </audio>
+    </div>;
+    if (!this.state.mp3) {
+      mp3 = null;
+    }
+
     return (
       <div>
         <Navbar brand={<a href="#">{this.state.toolbar.title}</a>} inverse>
@@ -70,11 +81,7 @@ var App = React.createClass({
           </Nav>
         </Navbar>
         <RouteHandler/>
-        <div id="player">
-          <audio controls="true" preload="true" autoPlay="true" loop="true">
-            <source src="data/bgm.mp3" type="audio/mp3"/>
-          </audio>
-        </div>
+        {mp3}
       </div>
     );
   }
@@ -94,6 +101,7 @@ var routes = (
 Router.run(routes, function (Handler, state) {
   var params = state.params;
   path = state.path;
-  React.render(<Handler params={params}/>, document.getElementById('contents'));
+  var element = document.getElementById('contents');
+  React.render(<Handler params={params}/>, element);
 });
 

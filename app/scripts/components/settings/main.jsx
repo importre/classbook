@@ -76,6 +76,10 @@ let SettingMain = React.createClass({
     ipc.sendSync('open-slides-dir');
   },
 
+  openMp3: function () {
+    ipc.sendSync('open-mp3-dir');
+  },
+
   render: function () {
     var base = ipc.sendSync('get-base-dir');
     return (
@@ -142,6 +146,16 @@ let SettingMain = React.createClass({
           </div>
 
           <br/>
+
+          <PageHeader>배경음악 설정
+            <small>: 폴더를 열어 mp3파일을 넣으세요.</small>
+          </PageHeader>
+
+          <Grid>
+            <Row>
+              <Button bsStyle='primary' onClick={this.openMp3}>폴더 열기</Button>
+            </Row>
+          </Grid>
         </div>
       </selction>
     );
