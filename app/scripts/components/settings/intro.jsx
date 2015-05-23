@@ -37,6 +37,9 @@ let SettingIntro = React.createClass({
 
     if (valid) {
       ipc.on('response-save-file', this.saved);
+
+      this.state.msgPreview = null;
+      this.state.etcPreview = null;
       ipc.send('request-save-file', 'data/intro.json', this.state);
     }
   },
