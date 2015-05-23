@@ -1,5 +1,6 @@
 import React from 'react'
 import bs from 'react-bootstrap'
+import marked from 'marked'
 
 var { Panel, PageHeader, Input, Button } = bs;
 var { Grid, Row, Col } = bs;
@@ -7,7 +8,10 @@ var { Grid, Row, Col } = bs;
 let SettingIntro = React.createClass({
 
   getInitialState: function () {
-    return JSON.parse(ipc.sendSync('read-file', 'data/intro.json'))
+    var data = JSON.parse(ipc.sendSync('read-file', 'data/intro.json'));
+    data.msgPreview = marked(data.msg, {sanitize: true});
+    data.etcPreview = marked(data.etc, {sanitize: true});
+    return data;
   },
 
   saved: function (success) {
@@ -29,7 +33,7 @@ let SettingIntro = React.createClass({
     };
 
     checkValidation(this.state.motto, 'mottoStyle');
-    checkValidation(this.state.message, 'messageStyle');
+    checkValidation(this.state.msg, 'messageStyle');
 
     if (valid) {
       ipc.on('response-save-file', this.saved);
@@ -38,10 +42,16 @@ let SettingIntro = React.createClass({
   },
 
   handleChanged: function () {
+    var msg = this.refs.msg.getValue();
+    var etc = this.refs.etc.getValue();
+
     this.setState({
       motto: this.refs.motto.getValue(),
-      message: this.refs.message.getValue()
-    })
+      msg: this.refs.msg.getValue(),
+      etc: etc,
+      msgPreview: marked(msg, {sanitize: true}),
+      etcPreview: marked(etc, {sanitize: true})
+    });
   },
 
   render: function () {
@@ -52,17 +62,40 @@ let SettingIntro = React.createClass({
         </PageHeader>
 
         <form className='form-horizontal'>
-          <Input type='text' label='Motto' ref='motto'
-                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
-                 value={this.state.motto}
-                 onChange={this.handleChanged}
-                 bsStyle={this.state.mottoStyle}/>
-          <Input type='textarea' label='Message' ref='message'
-                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
-                 rows='10'
-                 value={this.state.message}
-                 onChange={this.handleChanged}
-                 bsStyle={this.state.messageStyle}/>
+          <Row>
+            <Col sm={12}>
+              <Input type='text' label='급훈' ref='motto'
+                     labelClassName='col-sm-1' wrapperClassName='col-sm-11'
+                     value={this.state.motto}
+                     onChange={this.handleChanged}
+                     bsStyle={this.state.mottoStyle}/>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <Input type='textarea' label='메시지' ref='msg'
+                     labelClassName='col-sm-2' wrapperClassName='col-sm-10'
+                     rows='10'
+                     value={this.state.msg}
+                     onChange={this.handleChanged}
+                     bsStyle={this.state.messageStyle}/>
+            </Col>
+            <Col sm={6}>
+              <div dangerouslySetInnerHTML={{__html:  this.state.msgPreview}}></div>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              <Input type='textarea' label='기타' ref='etc'
+                     labelClassName='col-sm-2' wrapperClassName='col-sm-10'
+                     rows='20'
+                     value={this.state.etc}
+                     onChange={this.handleChanged}/>
+            </Col>
+            <Col sm={6}>
+              <div dangerouslySetInnerHTML={{__html:  this.state.etcPreview}}></div>
+            </Col>
+          </Row>
 
           <div className='text-right'>
             <Button bsStyle='primary' onClick={this.save}>저장</Button>
