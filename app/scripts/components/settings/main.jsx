@@ -73,11 +73,11 @@ let SettingMain = React.createClass({
   },
 
   openAlbum: function () {
-    ipc.sendSync('open-slides-dir');
+    ipc.sendSync('open-dir', 'images/slides');
   },
 
   openMp3: function () {
-    ipc.sendSync('open-mp3-dir');
+    ipc.sendSync('open-dir', 'mp3');
   },
 
   render: function () {

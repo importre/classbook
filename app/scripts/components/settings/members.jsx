@@ -19,7 +19,7 @@ let SettingMembers = React.createClass({
   },
 
   openMembers: function () {
-    ipc.sendSync('open-members-dir');
+    ipc.sendSync('open-dir', 'images/members');
   },
 
   render: function () {

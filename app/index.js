@@ -152,32 +152,8 @@ ipc.on('request-copy-slide', function (event, old) {
   });
 });
 
-ipc.on('open-slides-dir', function (event, arg) {
-  var dir = `${__dirname}/images/slides`;
-  shell.openItem(dir);
-  event.returnValue = true;
-});
-
-ipc.on('open-image-album-dir', function (event, arg) {
-  var dir = `${__dirname}/images/events`;
-  shell.openItem(dir);
-  event.returnValue = true;
-});
-
-ipc.on('open-video-album-dir', function (event, arg) {
-  var dir = `${__dirname}/movies`;
-  shell.openItem(dir);
-  event.returnValue = true;
-});
-
-ipc.on('open-mp3-dir', function (event, arg) {
-  var dir = `${__dirname}/mp3`;
-  shell.openItem(dir);
-  event.returnValue = true;
-});
-
-ipc.on('open-members-dir', function (event, arg) {
-  var dir = `${__dirname}/images/members`;
+ipc.on('open-dir', function (event, arg) {
+  var dir = `${__dirname}/${arg}`;
   shell.openItem(dir);
   event.returnValue = true;
 });

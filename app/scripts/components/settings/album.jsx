@@ -7,11 +7,11 @@ var { Grid, Row, Col } = bs;
 let SettingAlbum = React.createClass({
 
   openImageAlbum: function () {
-    ipc.sendSync('open-image-album-dir');
+    ipc.sendSync('open-dir', 'images/events');
   },
 
   openVideoAlbum: function () {
-    ipc.sendSync('open-video-album-dir');
+    ipc.sendSync('open-dir', 'movies');
   },
 
   render: function () {
