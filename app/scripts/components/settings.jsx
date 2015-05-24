@@ -5,6 +5,7 @@ import SettingMain from './settings/main.jsx'
 import SettingAlbum from './settings/album.jsx'
 import SettingIntro from './settings/intro.jsx'
 import SettingMembers from './settings/members.jsx'
+import SettingMemo from './settings/memo.jsx'
 
 var { Panel, PageHeader, Input, Button } = bs;
 var { Grid, Row, Col, TabbedArea, TabPane } = bs;
@@ -33,6 +34,9 @@ let Settings = React.createClass({
           </TabPane>
           <TabPane eventKey={5} tab='앨범 설정'>
             <SettingAlbum />
+          </TabPane>
+          <TabPane eventKey={6} tab='메모 설정'>
+            <SettingMemo />
           </TabPane>
         </TabbedArea>
       </div>

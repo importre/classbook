@@ -49,6 +49,7 @@ app.on('ready', function () {
 
   mainWindow.loadUrl(`file://${__dirname}/index.html`);
   mainWindow.maximize();
+  mainWindow.focus();
 
   try {
     var bs = require("browser-sync").create();
@@ -61,10 +62,6 @@ app.on('ready', function () {
   }
 
   if (process.platform === 'darwin') {
-    globalShortcut.register('Alt+Command+I', function () {
-      mainWindow.toggleDevTools();
-    });
-
     globalShortcut.register('Alt+Command+S', editMode);
   } else {
     globalShortcut.register('Alt+Ctrl+S', editMode);
@@ -75,6 +72,8 @@ app.on('ready', function () {
     // for multiple windows store them in an array
     mainWindow = null;
   });
+
+  initMenu();
 });
 
 ipc.on('request-readdir', function (event, arg) {
@@ -132,7 +131,7 @@ ipc.on('request-copy-slide', function (event, old) {
     properties: ['openFile']
   };
 
-  dialog.showOpenDialog(mainWindow, options, function(files) {
+  dialog.showOpenDialog(mainWindow, options, function (files) {
     if (files && files.length > 0) {
       var src = files[0];
       var dst = `${__dirname}/`;
@@ -182,3 +181,184 @@ ipc.on('open-members-dir', function (event, arg) {
   shell.openItem(dir);
   event.returnValue = true;
 });
+
+function initMenu() {
+  var template;
+  if (process.platform == 'darwin') {
+    template = [
+      {
+        label: 'Electron',
+        submenu: [
+          {
+            label: 'About Electron',
+            selector: 'orderFrontStandardAboutPanel:'
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: 'Services',
+            submenu: []
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: 'Hide Electron',
+            accelerator: 'Command+H',
+            selector: 'hide:'
+          },
+          {
+            label: 'Hide Others',
+            accelerator: 'Command+Shift+H',
+            selector: 'hideOtherApplications:'
+          },
+          {
+            label: 'Show All',
+            selector: 'unhideAllApplications:'
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: 'Quit',
+            accelerator: 'Command+Q',
+            click: function () {
+              app.quit();
+            }
+          }
+        ]
+      },
+      {
+        label: 'Edit',
+        submenu: [
+          {
+            label: 'Undo',
+            accelerator: 'Command+Z',
+            selector: 'undo:'
+          },
+          {
+            label: 'Redo',
+            accelerator: 'Shift+Command+Z',
+            selector: 'redo:'
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: 'Cut',
+            accelerator: 'Command+X',
+            selector: 'cut:'
+          },
+          {
+            label: 'Copy',
+            accelerator: 'Command+C',
+            selector: 'copy:'
+          },
+          {
+            label: 'Paste',
+            accelerator: 'Command+V',
+            selector: 'paste:'
+          },
+          {
+            label: 'Select All',
+            accelerator: 'Command+A',
+            selector: 'selectAll:'
+          }
+        ]
+      },
+      {
+        label: 'View',
+        submenu: [
+          {
+            label: 'Reload',
+            accelerator: 'Command+R',
+            click: function () {
+              mainWindow.restart();
+            }
+          },
+          {
+            label: 'Toggle Full Screen',
+            accelerator: 'Ctrl+Command+F',
+            click: function () {
+              mainWindow.setFullScreen(!mainWindow.isFullScreen());
+            }
+          },
+          {
+            label: 'Toggle Developer Tools',
+            accelerator: 'Alt+Command+I',
+            click: function () {
+              mainWindow.toggleDevTools();
+            }
+          }
+        ]
+      },
+      {
+        label: 'Window',
+        submenu: [
+          {
+            label: 'Minimize',
+            accelerator: 'Command+M',
+            selector: 'performMiniaturize:'
+          },
+          {
+            label: 'Close',
+            accelerator: 'Command+W',
+            selector: 'performClose:'
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: 'Bring All to Front',
+            selector: 'arrangeInFront:'
+          }
+        ]
+      }
+    ];
+
+    menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
+  } else {
+    template = [
+      {
+        label: '&File',
+        submenu: [
+          {
+            label: '&Open',
+            accelerator: 'Ctrl+O'
+          },
+          {
+            label: '&Close',
+            accelerator: 'Ctrl+W',
+            click: function () {
+              mainWindow.close();
+            }
+          }
+        ]
+      },
+      {
+        label: '&View',
+        submenu: [
+          {
+            label: '&Reload',
+            accelerator: 'Ctrl+R',
+            click: function () {
+              mainWindow.restart();
+            }
+          },
+          {
+            label: 'Toggle &Full Screen',
+            accelerator: 'F11',
+            click: function () {
+              mainWindow.setFullScreen(!mainWindow.isFullScreen());
+            }
+          }
+        ]
+      }
+    ];
+
+    menu = Menu.buildFromTemplate(template);
+    mainWindow.setMenu(menu);
+  }
+}
