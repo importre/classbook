@@ -5,7 +5,7 @@ import marked from 'marked'
 var { Panel, PageHeader, Input, Button } = bs;
 var { Grid, Row, Col } = bs;
 
-let SettingIntro = React.createClass({
+let SettingMemo = React.createClass({
 
   getInitialState: function () {
     var data = JSON.parse(ipc.sendSync('read-file', 'data/memo.json'));
@@ -61,4 +61,4 @@ let SettingIntro = React.createClass({
   }
 });
 
-export default SettingIntro;
+export default SettingMemo;
