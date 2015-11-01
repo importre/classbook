@@ -53,7 +53,7 @@ let Album = React.createClass({
     var images = [];
     if (files) {
       for (var i = 0; i < files.length; i++) {
-        if (files[i].startsWith('.')) {
+        if (files[i].startsWith('.') || files[i].endsWith('.db')) {
           continue;
         }
 

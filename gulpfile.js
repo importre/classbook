@@ -128,7 +128,7 @@ gulp.task('release', ['browserify'], function () {
       packageJson: packageJson,
       release: './release',
       cache: './cache',
-      version: 'v0.26.0',
+      version: 'v0.34.2',
       rebuild: false,
       platforms: ['win32-ia32', 'darwin-x64']
     }))
@@ -147,4 +147,3 @@ gulp.task('build', ['clean'], function () {
 gulp.task('default', function () {
   console.log('Run `gulp watch` or `gulp build`');
 });
-
