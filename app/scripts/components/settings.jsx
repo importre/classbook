@@ -5,7 +5,7 @@ import SettingMain from './settings/main.jsx'
 import SettingAlbum from './settings/album.jsx'
 import SettingIntro from './settings/intro.jsx'
 import SettingMembers from './settings/members.jsx'
-import SettingMemo from './settings/memo.jsx'
+import SettingAlbum2 from './settings/album2.jsx'
 import SettingHelp from './settings/help.jsx'
 
 var { Panel, PageHeader, Input, Button } = bs;
@@ -19,7 +19,7 @@ let Settings = React.createClass({
 
   render: function () {
     return (
-      <div className='container'>
+      <div className='container bottom'>
         <TabbedArea defaultActiveKey={1} animation={false}>
           <TabPane eventKey={1} tab='메뉴 설정'>
             <SettingToolbar />
@@ -36,8 +36,8 @@ let Settings = React.createClass({
           <TabPane eventKey={5} tab='앨범 설정'>
             <SettingAlbum />
           </TabPane>
-          <TabPane eventKey={6} tab='메모 설정'>
-            <SettingMemo />
+          <TabPane eventKey={6} tab='앨범2 설정'>
+            <SettingAlbum2 />
           </TabPane>
           <TabPane eventKey={7} tab='도움말'>
             <SettingHelp />

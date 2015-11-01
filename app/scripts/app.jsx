@@ -6,7 +6,7 @@ import Main from './components/main.jsx'
 import Intro from './components/intro.jsx'
 import Members from './components/members.jsx'
 import Album from './components/album.jsx'
-import Memo from './components/memo.jsx'
+import Album2 from './components/album2.jsx'
 import Settings from './components/settings.jsx'
 import moment from 'moment'
 
@@ -75,7 +75,7 @@ var App = React.createClass({
             <NavItemLink to="intro">{this.state.toolbar.intro}</NavItemLink>
             <NavItemLink to="members">{this.state.toolbar.members}</NavItemLink>
             <NavItemLink to="album">{this.state.toolbar.album}</NavItemLink>
-            <NavItemLink to="memo">{this.state.toolbar.memo}</NavItemLink>
+            <NavItemLink to="album2">{this.state.toolbar.album2}</NavItemLink>
           </Nav>
           <Nav right>
             <NavItemLink to={path}>{this.getDday(this.state.toolbar.date)}</NavItemLink>
@@ -95,7 +95,7 @@ var routes = (
     <Route name="intro" handler={Intro}/>
     <Route name="members" handler={Members}/>
     <Route name="album" handler={Album}/>
-    <Route name="memo" handler={Memo}/>
+    <Route name="album2" handler={Album2}/>
     <Route name="settings" handler={Settings}/>
     <DefaultRoute handler={Main}/>
   </Route>
@@ -107,4 +107,3 @@ Router.run(routes, function (Handler, state) {
   var element = document.getElementById('contents');
   React.render(<Handler params={params}/>, element);
 });
-

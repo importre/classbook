@@ -30,6 +30,7 @@ let SettingToolbar = React.createClass({
       'intro': this.refs.intro.getValue(),
       'members': this.refs.members.getValue(),
       'album': this.refs.album.getValue(),
+      'album2': this.refs.album2.getValue(),
       'date': this.state.date,
       'settings': 'Settings'
     };
@@ -51,6 +52,7 @@ let SettingToolbar = React.createClass({
     checkValidation(menu.intro, 'menuIntroStyle');
     checkValidation(menu.members, 'menuMembersStyle');
     checkValidation(menu.album, 'menuAlbumStyle');
+    checkValidation(menu.album2, 'menuAlbumStyle');
 
     if (valid) {
       ipc.on('response-save-menu', this.savedMenu);
@@ -63,7 +65,8 @@ let SettingToolbar = React.createClass({
       'title': this.refs.title.getValue(),
       'intro': this.refs.intro.getValue(),
       'members': this.refs.members.getValue(),
-      'album': this.refs.album.getValue()
+      'album': this.refs.album.getValue(),
+      'album2': this.refs.album2.getValue()
     })
   },
 
@@ -93,6 +96,11 @@ let SettingToolbar = React.createClass({
           <Input type='text' label='Album' ref='album'
                  labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.album}
+                 onChange={this.handleMenuChanged}
+                 bsStyle={this.state.menuAlbumStyle}/>
+               <Input type='text' label='Album2' ref='album2'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
+                 value={this.state.album2}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuAlbumStyle}/>
 
