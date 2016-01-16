@@ -103,14 +103,14 @@ let Students = React.createClass({
         <Col sm={6} md={4} key={'student' + i}>
           <Panel bsStyle='success'>
             <Row>
-              <Col sm={3}>
+              <Col sm={4}>
                 <div className="text-center">
                   <img width={width} height={height}
                        src={this.state.students[i].image}
                        className="img-circle"/>
                 </div>
               </Col>
-              <Col sm={9}>{i1} {i2} {i3}</Col>
+              <Col sm={8}>{i1} {i2} {i3}</Col>
             </Row>
           </Panel>
         </Col>

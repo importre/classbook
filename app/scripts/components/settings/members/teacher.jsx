@@ -50,14 +50,14 @@ let Teacher = React.createClass({
 
         <Panel bsStyle='info'>
           <Row>
-            <Col sm={2}>
+            <Col sm={3}>
               <div className="text-center">
                 <img width={width} height={height}
                      src={this.state.teacher.image}
                      className="img-circle"/>
               </div>
             </Col>
-            <Col sm={10}>
+            <Col sm={9}>
               <Input bsSize="small" type='text' addonBefore={<Glyphicon glyph='user'/>}
                      ref='name'
                      onChange={this.handleChanged}
