@@ -149,7 +149,7 @@ let Album = React.createClass({
       var item =
         <CarouselItem>
           <div className="text-center carousel-img">
-            <img width='100%' src={src}/>
+            <img className="carousel-dialog-img" src={src}/>
           </div>
         </CarouselItem>;
       items.push(item);
