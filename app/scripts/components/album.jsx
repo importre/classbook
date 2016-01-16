@@ -14,7 +14,6 @@ let Album = React.createClass({
   mixins: [OverlayMixin],
 
   getInitialState: function () {
-    var movies = ipc.sendSync('request-readdir', "movies/");
     var dirs = ipc.sendSync('request-readdir', "images/events/");
     var events = [];
 
@@ -24,15 +23,10 @@ let Album = React.createClass({
       }
     });
 
-    if (movies) {
-      events.push('동영상');
-    }
-
     return {
       activeKey: 0,
       events: events,
       images: <div />,
-      movies: movies,
       isModalOpen: false,
       imageDir: "images/events/"
     }
@@ -74,22 +68,7 @@ let Album = React.createClass({
           </Col>
         );
       }
-    } else {
-      if (selectedKey == this.state.events.length - 1) {
-        this.state.movies.forEach(movie=> {
-          movie = 'movies/' + movie;
-          images.push(
-            <Col sm={6}>
-              <div className="text-center">
-                <video width="320" height="240" controls>
-                  <source src={movie}/>
-                </video>
-              </div>
-            </Col>
-          );
-        });
-      }
-    }
+    } 
 
     this.setState({
       activeKey: selectedKey,

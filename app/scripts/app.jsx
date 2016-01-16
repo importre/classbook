@@ -6,6 +6,7 @@ import Main from './components/main.jsx'
 import Intro from './components/intro.jsx'
 import Members from './components/members.jsx'
 import Album from './components/album.jsx'
+import Movie from './components/movie.jsx'
 import Album2 from './components/album2.jsx'
 import Settings from './components/settings.jsx'
 import moment from 'moment'
@@ -75,6 +76,7 @@ var App = React.createClass({
             <NavItemLink to="intro">{this.state.toolbar.intro}</NavItemLink>
             <NavItemLink to="members">{this.state.toolbar.members}</NavItemLink>
             <NavItemLink to="album">{this.state.toolbar.album}</NavItemLink>
+            <NavItemLink to="movie">{this.state.toolbar.movie || '동영상'}</NavItemLink>
             <NavItemLink to="album2">{this.state.toolbar.album2}</NavItemLink>
           </Nav>
           <Nav right>
@@ -95,6 +97,7 @@ var routes = (
     <Route name="intro" handler={Intro}/>
     <Route name="members" handler={Members}/>
     <Route name="album" handler={Album}/>
+    <Route name="movie" handler={Movie}/>
     <Route name="album2" handler={Album2}/>
     <Route name="settings" handler={Settings}/>
     <DefaultRoute handler={Main}/>

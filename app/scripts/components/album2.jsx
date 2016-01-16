@@ -26,7 +26,7 @@ let Album = React.createClass({
       events: events,
       images: <div />,
       isModalOpen: false,
-      imageDir: "images/events2/"
+      movieDir: "images/events2/"
     }
   },
 
@@ -47,7 +47,7 @@ let Album = React.createClass({
 
   handleSelect: function (selectedKey) {
     const event = this.state.events[selectedKey];
-    const baseDir = this.state.imageDir + event;
+    const baseDir = this.state.movieDir + event;
     var files = ipc.sendSync('request-readdir', baseDir);
 
     var images = [];

@@ -30,6 +30,7 @@ let SettingToolbar = React.createClass({
       'intro': this.refs.intro.getValue(),
       'members': this.refs.members.getValue(),
       'album': this.refs.album.getValue(),
+      'movie': this.refs.movie.getValue(),
       'album2': this.refs.album2.getValue(),
       'date': this.state.date,
       'settings': 'Settings'
@@ -52,6 +53,7 @@ let SettingToolbar = React.createClass({
     checkValidation(menu.intro, 'menuIntroStyle');
     checkValidation(menu.members, 'menuMembersStyle');
     checkValidation(menu.album, 'menuAlbumStyle');
+    checkValidation(menu.movie, 'menuMovieStyle');
     checkValidation(menu.album2, 'menuAlbumStyle');
 
     if (valid) {
@@ -66,6 +68,7 @@ let SettingToolbar = React.createClass({
       'intro': this.refs.intro.getValue(),
       'members': this.refs.members.getValue(),
       'album': this.refs.album.getValue(),
+      'movie': this.refs.movie.getValue(),
       'album2': this.refs.album2.getValue()
     })
   },
@@ -98,7 +101,12 @@ let SettingToolbar = React.createClass({
                  value={this.state.album}
                  onChange={this.handleMenuChanged}
                  bsStyle={this.state.menuAlbumStyle}/>
-               <Input type='text' label='Album2' ref='album2'
+          <Input type='text' label='Movie' ref='movie'
+                 labelClassName='col-sm-1' wrapperClassName='col-sm-11'
+                 value={this.state.movie}
+                 onChange={this.handleMenuChanged}
+                 bsStyle={this.state.menuAlbumStyle}/>
+          <Input type='text' label='Album2' ref='album2'
                  labelClassName='col-sm-1' wrapperClassName='col-sm-11'
                  value={this.state.album2}
                  onChange={this.handleMenuChanged}
