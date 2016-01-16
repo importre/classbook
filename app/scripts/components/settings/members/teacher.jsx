@@ -4,6 +4,9 @@ import bs from 'react-bootstrap'
 var { Panel, PageHeader, Input, Button } = bs;
 var { Row, Col, Glyphicon } = bs;
 
+const width = '150px';
+const height = '150px';
+
 let Teacher = React.createClass({
 
   getInitialState: function () {
@@ -49,7 +52,7 @@ let Teacher = React.createClass({
           <Row>
             <Col sm={2}>
               <div className="text-center">
-                <img width="70px" height="70px"
+                <img width={width} height={height}
                      src={this.state.teacher.image}
                      className="img-circle"/>
               </div>

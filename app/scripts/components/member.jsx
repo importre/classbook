@@ -3,6 +3,9 @@ import bs from 'react-bootstrap'
 
 var { Glyphicon, Panel, Grid, Row, Col } = bs;
 
+const width= '100px';
+const height = '100px';
+
 let Member = React.createClass({
 
   getInitialState: function () {
@@ -18,14 +21,14 @@ let Member = React.createClass({
         <Col sm={6} md={4}>
           <Panel header={<h1>{this.props.data.name}</h1>} bsStyle='success'>
             <Row>
-              <Col sm={3}>
+              <Col sm={4}>
                 <div className="text-center">
-                  <img width="70px" height="70px"
+                  <img width={width} height={height}
                        src={this.props.data.image}
                        className="img-circle"/>
                 </div>
               </Col>
-              <Col sm={9}>
+              <Col sm={8}>
                 <Row>
                   <Col xs={2}><Glyphicon glyph='heart'/></Col>
                   <Col xs={10}>{this.props.data.heart}</Col>

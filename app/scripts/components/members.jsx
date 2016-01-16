@@ -4,6 +4,9 @@ import Member from './member.jsx'
 
 var { Glyphicon, Panel, Grid, Row, Col } = bs;
 
+const width = '150px';
+const height = '150px';
+
 let Members = React.createClass({
 
   getInitialState: function () {
@@ -38,14 +41,14 @@ let Members = React.createClass({
         <div className="container">
           <Panel header={<h1>{this.state.teacher.name}</h1>} bsStyle='info'>
             <Row>
-              <Col sm={2}>
+              <Col sm={3}>
                 <div className="text-center">
-                  <img width="70px" height="70px"
+                  <img width={width} height={height}
                        src={image}
                        className="img-circle"/>
                 </div>
               </Col>
-              <Col sm={10}>
+              <Col sm={9}>
                 <Row>
                   <Col xs={1}><Glyphicon glyph='heart'/></Col>
                   <Col xs={11}>{this.state.teacher.heart}</Col>
